@@ -215,7 +215,7 @@ async function registrar() {
     dt_entrega: form.value.dt_entrega,
     assinatura: !!form.value.assinatura // Sua tabela 'entrega' define assinatura como BOOLEAN no SQL original
   }])
-
+ 
   if (insertError) { 
     erro.value = insertError.message; 
     loading.value = false
