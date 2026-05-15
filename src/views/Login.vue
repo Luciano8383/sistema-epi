@@ -40,6 +40,7 @@ async function fazerLogin() {
     password: senha.value 
   })
   
+  
   if (error) {
     erro.value = 'Credenciais inválidas'
     return
