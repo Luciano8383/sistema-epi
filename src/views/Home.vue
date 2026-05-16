@@ -11,232 +11,340 @@
             <nav>
                 <ul>
                     <li><a href="#">Home</a></li>
-                    <li><a href="https://www.sc.senai.br/">Institucional</a></li>
+                    <li><a href="https://www.sc.senai.br/" target="_blank">Institucional</a></li>
                     <li><a href="#">Fornecedores</a></li>
                 </ul>
             </nav>
 
             <div class="login-area">
-                <router-link to="/login">Login</router-link>
-                <div class="login-icon">
-                    <router-link to="/login">
-                        <img src="../assets/header/login.png" alt="Ícone de Login" class="login-icon">
-                    </router-link>
-                </div>
+                <router-link to="/login" class="login-link">Login</router-link>
+                <router-link to="/login" class="login-icon-container">
+                    <img src="../assets/header/login.png" alt="Ícone de Login" class="login-icon">
+                </router-link>
             </div>
         </div>
     </header>
 
-    <main>
-        <section class="epi">
+    <main class="main-content">
+        <section class="epi-hero">
             <h1>Bem-vindo ao Sistema de EPI</h1>
-            <p>Gerencie eficientemente seus equipamentos de proteção individual.</p>
-
+            <p>Gerencie eficientemente seus equipamentos de proteção individual com segurança e agilidade.</p>
         </section>
 
-        <img src="../assets/Principal/senai.png" alt="Imagem de Fundo" class="senai-image">
-        <div class="img2" alt="Imagem 2">
-            <img src="../assets/Principal/imagem1.png" alt="img1" class="imagem1">
-            <img src="../assets/Principal/imagem2.png" alt="img2" class="imagem2">
-            <img src="../assets/Principal/imagem3.png" alt="img3" class="imagem3">
-        </div>
+        <section class="gallery-section">
+            <img src="../assets/Principal/senai.png" alt="Imagem de Fundo" class="senai-image">
+            
+            <div class="img-grid">
+                <img src="../assets/Principal/imagem1.png" alt="img1" class="thumb-image">
+                <img src="../assets/Principal/imagem2.png" alt="img2" class="thumb-image">
+                <img src="../assets/Principal/imagem3.png" alt="img3" class="thumb-image">
+            </div>
+        </section>
     </main>
 
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-info">
+                <div class="contact-item">
+                    <img src="../assets/Footer/telefone.png" alt="Telefone" class="footer-icon">
+                    <span>0800-048-1212</span>
+                </div>
+                <div class="contact-item">
+                    <img src="../assets/Footer/whats.png" alt="WhatsApp" class="footer-icon">
+                    <span>(48) 3231-4000</span>
+                </div>
+                <div class="contact-item">
+                    <img src="../assets/Footer/email.png" alt="Email" class="footer-icon">
+                    <span>faleconosco@fiesc.com.br</span>
+                </div>
+                <div class="contact-item local">
+                    <img src="../assets/Footer/local.png" alt="Localização" class="footer-icon">
+                    <span>Rod. Ademar Gonzaga, 2765 - Centro, Florianópolis - SC</span>
+                </div>
+            </div>
 
-    <footer>
-        <div class="telefone">
-            <img src="../assets/Footer/telefone.png" alt="Telefone" class="telefone-icon">
-            <span>0800-048-1212</span>
+            <div class="redes-sociais">
+                <a href="https://www.linkedin.com/school/senai-sc/?originalSubdomain=br" target="_blank" rel="noopener noreferrer">
+                    <img src="../assets/Footer/linkedin.png" alt="Linkedin" class="footer-icon social-icon">
+                </a>
+                <a href="https://www.facebook.com/senaisc/" target="_blank" rel="noopener noreferrer">
+                    <img src="../assets/Footer/face.png" alt="Facebook" class="footer-icon social-icon">
+                </a>
+                <a href="https://www.youtube.com/@senaiconhecimento/videos" target="_blank" rel="noopener noreferrer">
+                    <img src="../assets/Footer/youtube.png" alt="YouTube" class="footer-icon social-icon">
+                </a>
+            </div>
         </div>
-             <div class="whatsapp">
-                  <img src="../assets/Footer/whats.png" alt="WhatsApp" class="whatsapp-icon">
-                  <span>(48) 3231-4000 </span>
-             </div>
-                  <div class="email">
-                       <img src="../assets/Footer/email.png" alt="Email" class="email-icon">
-                       <span>faleconosco@fiesc.com.br</span>
-                  </div>
-                       <div class="local">
-                           <img src="../assets/Footer/local.png" alt="Localização" class="local-icon">
-                           <span>Rod. Ademar Gonzaga, 2765 - Centro, Florianópolis - SC, Brasil</span>
-                       </div>
-                            <div class="redes-sociais">
-  <a href="https://www.linkedin.com/school/senai-sc/?originalSubdomain=br" target="_blank" rel="noopener noreferrer">
-    <img src="../assets/Footer/linkedin.png" alt="Linkedin" class="linkedin-icon">
-  </a>
-
-  <a href="https://www.facebook.com/senaisc/" target="_blank" rel="noopener noreferrer">
-    <img src="../assets/Footer/face.png" alt="Facebook" class="facebook-icon">
-  </a>
-
-  <a href="https://www.youtube.com/@senaiconhecimento/videos" target="_blank" rel="noopener noreferrer">
-    <img src="../assets/Footer/youtube.png" alt="YouTube" class="youtube-icon">
-  </a>
-</div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Sistema de EPI. Todos os direitos reservados.</p>
+        </div>
     </footer>
 </template>
 
-<style scoped>     /* Estilização básica para remover margens padrão */
+<style scoped>
+/* Configurações Gerais de Reset Interno (Scoped) */
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
 
-
-/* Configuração do contêiner principal do cabeçalho */
+/* --- HEADER --- */
 .header {
     width: 100%;
-    box-sizing: border-box; /* Garante que o padding não aumente a largura total */
-    background-color: #2c3e50;
+    background-color: #1a252f;
     color: white;
-    padding: 0.5rem 2rem;
+    padding: 1rem 3rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Área do Logo da Empresa + Nome */
 .empresa-info {
     display: flex;
     align-items: center;
-    gap: 15px;   /* Espaço entre o logo e o nome */
+    gap: 15px;
 }
 
 .logo-header {
-    width: 60px; /* Largura do logo da empresa */
-    height: 60px; /* Altura do logo da empresa */
-    background-color: #fff; /* Fundo branco para visualização */
-    border-radius: 50%; /* Torna o logo circular (opcional) */
-    object-fit: contain;  /* Garante que a imagem caiba no espaço */
-    /* Se for usar uma imagem real: <img src="logo.png" class="empresa-logo" alt="Logo da Empresa"> */
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    border-radius: 50%;
+    object-fit: contain;
+    border: 2px solid #3498db;
 }
 
 .empresa-nome {
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
-/* Área do Menu + Logo de Login */
 .menu-login-container {
     display: flex;
     align-items: center;
-    gap: 30px;  /* Espaço entre o menu e a área de login */
+    gap: 40px;
 }
 
-/* Estilização da lista de navegação */
 nav ul {
-    list-style: none; /* Remove as bolinhas da lista */
+    list-style: none;
     margin: 0;
     padding: 0;
-    display: flex;  /* Coloca os itens um ao lado do outro */
-    gap: 25px;  /* Espaçamento entre os links */
+    display: flex;
+    gap: 30px;
 }
 
 nav a {
-    color: #ecf0f1;
-    text-decoration: none;  /* Remove o sublinhado dos links */
-    font-weight: 500;
-    font-size: 1.3rem;
-    transition: color 0.3s, transform 0.2s;
-    display: inline-block;  /* Necessário para o transform funcionar */
+    color: #b4c2d3;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: color 0.3s ease, transform 0.2s ease;
 }
 
 nav a:hover {
-    color: #3498db;  /* Cor ao passar o mouse */
-    transform: translateY(-2px); /* Pequena animação ao passar o mouse */
+    color: #3498db;
+    transform: translateY(-1px);
 }
 
-/* Área específica do Login */
+/* Área de Login */
 .login-area {
-    font-size: 1.3rem;
     display: flex;
     align-items: center;
-    gap: 10px; /* Espaço entre o texto Login e seu logo */
-    cursor: pointer;
+    gap: 12px;
 }
 
-.login-area a {
-    color: #ecf0f1;
+.login-link {
+    color: #b4c2d3;
     text-decoration: none;
-
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: color 0.3s;
 }
 
-.login-area a:hover {
+.login-link:hover {
     color: #3498db;
 }
 
-.login-icon {
-    width: 40px;  /* Largura do logo de login */
-    height: 40px; /* Altura do logo de login */
-    background-color: #34495e;  /* Fundo mais escuro para destaque */
-    border-radius: 50%; /* Circular */
+.login-icon-container {
+    width: 42px;
+    height: 42px;
+    background-color: #2c3e50;
+    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 9rem;  /* Para usar uma inicial se não tiver imagem */
-    /* Se for usar imagem: <img src="login.png" class="login-icon" alt="Login"> */
+    transition: background-color 0.3s, transform 0.2s;
 }
 
-use {
-    font-family: 'Iceland', sans-serif;
-}   
-main {
-    padding: 1rem;
-    text-align: center;
+.login-icon-container:hover {
+    background-color: #3498db;
+    transform: scale(1.05);
 }
+
+.login-icon {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+}
+
+/* --- MAIN --- */
+.main-content {
+    padding: 3rem 2rem;
+    background-color: #f8fafc;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.epi-hero {
+    max-width: 800px;
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.epi-hero h1 {
+    font-size: 2.5rem;
+    color: #1a252f;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.epi-hero p {
+    font-size: 1.1rem;
+    color: #64748b;
+    line-height: 1.6;
+}
+
+.gallery-section {
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+}
+
 .senai-image {
     width: 100%;
-    max-width: 500px;
+    max-width: 650px;
     height: auto;
-    margin-top: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
-.epi h1 {
-    font-size: 2rem;
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
-}
-.epi p {
-    font-size: 0.75rem;
-    color: #34495e;
-    margin-bottom: 0.5rem;
-}
-.img2 {
+
+.img-grid {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    margin-top: 2rem;
-}
-.imagem1, .imagem2, .imagem3 {
+    gap: 25px;
     width: 100%;
-    max-width: 200px;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-footer {
-    width: 100%;
-    box-sizing: border-box;
-    background-color: #f9fafb;
-    color: rgb(97, 95, 95);
-    padding: 1rem 2rem; /* Corrigido o erro de sintaxe da vírgula */
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap; /* Importante para que não quebre em telas menores */
-    gap: 20px;
-    bottom: 0;
+    flex-wrap: wrap;
 }
 
-.telefone, .whatsapp, .email, .local {
+.thumb-image {
+    width: 100%;
+    max-width: 220px;
+    height: 140px;
+    object-fit: cover; /* Garante que fotos cortem sem distorcer */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.thumb-image:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.12);
+}
+
+/* --- FOOTER --- */
+.footer {
+    width: 100%;
+    background-color: #111827;
+    color: #9ca3af;
+    padding: 3rem 2rem 1.5rem 2rem;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    border-bottom: 1px solid #1f2937;
+    padding-bottom: 2rem;
+}
+
+.footer-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.contact-item {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 5px; /* Espaço entre os itens */
-}   
+    gap: 10px;
+    font-size: 0.95rem;
+}
+
+.footer-icon {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    filter: brightness(0) invert(1); /* Deixa os ícones brancos se forem escuros */
+    opacity: 0.7;
+}
+
+.local {
+    max-width: 450px;
+}
+
 .redes-sociais {
     display: flex;
-    gap: 10px;
+    gap: 15px;
 }
 
+.social-icon {
+    width: 32px;
+    height: 32px;
+    transition: transform 0.2s, filter 0.2s;
+}
+
+.social-icon:hover {
+    transform: scale(1.1);
+    filter: brightness(1.2);
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+/* Responsividade Básica */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 1rem;
+    }
+    .menu-login-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .contact-item {
+        justify-content: center;
+    }
+}
 </style>
 <script>
 export default { name: 'Home', }
