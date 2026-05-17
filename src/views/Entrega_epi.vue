@@ -2,129 +2,138 @@
   <div class="layout-container">
     <!-- Cabeçalho -->
     <header class="header-section flex-between">
-      <div>
+      <div class="header-titles">
         <h1>Entregas de EPI</h1>
-        <p>Registro de saída de equipamentos para colaboradores.</p>
+        <p>Registro e controle de saída de equipamentos de proteção para colaboradores.</p>
       </div>
       <button class="btn btn-outline flex-center" @click="carregar" :disabled="loading">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-right: 8px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="icon-refresh">
           <path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/>
         </svg>
         Atualizar Dados
       </button>
     </header>
 
-    <!-- Formulário de Registro -->
-    <div class="card-form">
-      <div class="card-header">
-        <h2>Nova Entrega</h2>
-      </div>
-
-      <div class="main-form">
-        <div class="form-row">
-          <!-- Seleção de Funcionário -->
-          <div class="form-group">
-            <label>Funcionário</label>
-            <select v-model="form.id_funcionario" class="custom-select" :disabled="loading">
-              <option value="">Selecione o colaborador...</option>
-              <option v-for="f in funcionario" :key="f.id_funcionario" :value="f.id_funcionario">
-                {{ f.nome }} ({{ f.cargo || 'Sem cargo' }})
-              </option>
-            </select>
-          </div>
-
-          <!-- Seleção de EPI -->
-          <div class="form-group">
-            <label>EPI</label>
-            <select v-model="form.id_cadastro_epi" class="custom-select" :disabled="loading">
-              <option value="">Selecione o equipamento...</option>
-              <option v-for="e in cadastro_epi" :key="e.id_epi" :value="e.id_epi">
-                {{ e.nome }} — Saldo: {{ e.quantidade }}
-              </option>
-            </select>
-          </div>
+    <main class="content">
+      <!-- Formulário de Registro -->
+      <div class="card-form">
+        <div class="card-header">
+          <h2>Nova Entrega</h2>
         </div>
 
-        <div class="form-row cols-3">
-          <div class="form-group">
-            <label>Quantidade Entregue</label>
-            <input type="number" v-model.number="form.quantidade_entregue" min="1" />
+        <div class="main-form">
+          <div class="form-row">
+            <!-- Seleção de Funcionário -->
+            <div class="form-group">
+              <label for="funcionario-select">Funcionário</label>
+              <select id="funcionario-select" v-model="form.id_funcionario" class="custom-select" :disabled="loading">
+                <option value="">Selecione o colaborador...</option>
+                <option v-for="f in funcionario" :key="f.id_funcionario" :value="f.id_funcionario">
+                  {{ f.nome }} ({{ f.cargo || 'Sem cargo' }})
+                </option>
+              </select>
+            </div>
+
+            <!-- Seleção de EPI -->
+            <div class="form-group">
+              <label for="epi-select">Equipamento (EPI)</label>
+              <select id="epi-select" v-model="form.id_cadastro_epi" class="custom-select" :disabled="loading">
+                <option value="">Selecione o equipamento...</option>
+                <option v-for="e in cadastro_epi" :key="e.id_epi" :value="e.id_epi">
+                  {{ e.nome }} — Saldo Atual: {{ e.quantidade }}
+                </option>
+              </select>
+            </div>
           </div>
-          <div class="form-group">
-            <label>Data da Entrega</label>
-            <input type="date" v-model="form.dt_entrega" />
+
+          <div class="form-row cols-3">
+            <div class="form-group">
+              <label for="qtd-input">Quantidade Entregue</label>
+              <input type="number" id="qtd-input" v-model.number="form.quantidade_entregue" min="1" placeholder="Ex: 1" />
+            </div>
+            <div class="form-group">
+              <label for="data-input">Data da Entrega</label>
+              <input type="date" id="data-input" v-model="form.dt_entrega" />
+            </div>
+            <div class="form-group">
+              <label for="obs-input">Assinatura / Observação</label>
+              <input type="text" id="obs-input" v-model="form.assinatura" placeholder="Ex: Assinado digitalmente" />
+            </div>
           </div>
-          <div class="form-group">
-            <label>Assinatura / Observação</label>
-            <input type="text" v-model="form.assinatura" placeholder="Ex: Assinado via Tablet" />
+
+          <!-- Feedbacks de Alerta Customizados -->
+          <div class="msg-container">
+            <p class="error-msg" v-if="erro">⚠ {{ erro }}</p>
+            <p class="success-msg" v-if="ok">✓ Registro salvo e estoque atualizado com sucesso!</p>
+          </div>
+
+          <div class="action-bar">
+            <button 
+              class="btn btn-primary" 
+              @click="registrar" 
+              :disabled="!form.id_funcionario || !form.id_cadastro_epi || loading"
+            >
+              <span v-if="loading" class="flex-center">
+                <div class="spinner mini"></div> Processando...
+              </span>
+              <span v-else>Confirmar Entrega</span>
+            </button>
           </div>
         </div>
+      </div>
 
-        <div class="action-bar">
-          <button 
-            class="btn btn-primary" 
-            @click="registrar" 
-            :disabled="!form.id_funcionario || !form.id_cadastro_epi || loading"
-          >
-            <span v-if="loading">Processando...</span>
-            <span v-else>Confirmar Entrega</span>
-          </button>
+      <!-- Tabela de Histórico -->
+      <div class="card-table">
+        <div class="card-header flex-between">
+          <h2>Últimas Movimentações</h2>
+          <span class="badge badge-blue" v-if="entrega.length">{{ entrega.length }} registros</span>
         </div>
 
-        <p class="error-msg" v-if="erro">⚠ {{ erro }}</p>
-        <p class="success-msg" v-if="ok">✓ Registro salvo e estoque atualizado!</p>
-      </div>
-    </div>
+        <!-- Estado de Carregamento interno -->
+        <div v-if="loading && !entrega.length" class="loading-state">
+          <div class="spinner"></div>
+          <p>Carregando histórico de entregas...</p>
+        </div>
 
-    <!-- Tabela de Histórico -->
-    <div class="card-table">
-      <div class="card-header flex-between">
-        <h2>Últimas Movimentações</h2>
-        <span class="badge badge-blue" v-if="entrega.length">{{ entrega.length }} registros encontrados</span>
+        <div v-else class="table-container">
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th>Funcionário</th>
+                <th>Equipamento (EPI)</th>
+                <th class="text-center">Qtd</th>
+                <th>Data de Saída</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="e in entrega" :key="e.id_entrega">
+                <td>
+                  <div class="text-bold text-dark">{{ e.funcionario?.nome || 'N/A' }}</div>
+                  <div class="cargo-text">{{ e.funcionario?.cargo }}</div>
+                </td>
+                <td>
+                  <div class="text-bold text-dark">{{ e.cadastro_epi?.nome || 'EPI não encontrado' }}</div>
+                  <div class="cargo-text">CA: {{ e.cadastro_epi?.numero_ca || '—' }}</div>
+                </td>
+                <td class="text-center">
+                  <span class="text-bold text-dark">{{ e.quantidade_entregue }} un.</span>
+                </td>
+                <td class="cargo-text text-medium">{{ formatarData(e.dt_entrega) }}</td>
+                <td>
+                  <span class="badge badge-ok">Concluída</span>
+                </td>
+              </tr>
+              <tr v-if="entrega.length === 0 && !loading">
+                <td colspan="5" class="text-center cargo-text empty-state">
+                  Nenhuma entrega registrada até o momento.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-
-      <div v-if="loading && !entrega.length" class="text-center" style="padding: 40px;">
-        <div class="spinner"></div> Carregando histórico...
-      </div>
-
-      <div v-else class="table-container">
-        <table class="styled-table">
-          <thead>
-            <tr>
-              <th>Funcionário</th>
-              <th>Equipamento (EPI)</th>
-              <th class="text-center">Qtd</th>
-              <th>Data</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="e in entrega" :key="e.id_entrega">
-              <td>
-                <div class="text-bold">{{ e.funcionario?.nome || 'N/A' }}</div>
-                <div class="cargo-text">{{ e.funcionario?.cargo }}</div>
-              </td>
-              <td>
-                <div class="text-bold">{{ e.cadastro_epi?.nome || 'EPI não encontrado' }}</div>
-                <div class="cargo-text">CA: {{ e.cadastro_epi?.numero_ca || '—' }}</div>
-              </td>
-              <td class="text-center">
-                <span class="text-bold">{{ e.quantidade_entregue }}</span>
-              </td>
-              <td class="cargo-text">{{ formatarData(e.dt_entrega) }}</td>
-              <td>
-                <span class="badge badge-ok">Concluída</span>
-              </td>
-            </tr>
-            <tr v-if="entrega.length === 0 && !loading">
-              <td colspan="5" class="text-center cargo-text" style="padding: 40px;">
-                Nenhuma entrega registrada até o momento.
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+    </main>
   </div>
 </template>
 
@@ -244,30 +253,316 @@ onMounted(carregar)
 </script>
 
 <style scoped>
-.layout-container { width: 100%; padding: 20px 30px; background-color: #ffffff; min-height: 100vh; box-sizing: border-box; }
-.header-section { margin-bottom: 25px; }
-.header-section h1 { color: #0f172a; font-size: 1.5rem; font-weight: 700; margin: 0; }
-.card-form, .card-table { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 24px; width: 100%; overflow: hidden; }
-.card-header { background-color: #f8fafc; padding: 12px 20px; border-bottom: 1px solid #e2e8f0; }
-.flex-between { display: flex; justify-content: space-between; align-items: center; }
-.main-form { padding: 20px; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
-.cols-3 { grid-template-columns: 1fr 1fr 1.2fr; }
-.form-group { display: flex; flex-direction: column; gap: 6px; }
-label { font-size: 0.8rem; font-weight: 600; color: #334155; }
-input, .custom-select { padding: 9px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 0.875rem; }
-.btn-primary { background: #0f172a; color: white; padding: 10px 20px; border-radius: 6px; border: none; cursor: pointer; font-weight: 600; }
-.table-container { width: 100%; overflow-x: auto; }
-.styled-table { width: 100%; border-collapse: collapse; }
-.styled-table th { background: #f8fafc; padding: 14px 20px; text-align: left; font-size: 0.75rem; color: #475569; border-bottom: 2px solid #f1f5f9; }
-.styled-table td { padding: 14px 20px; border-top: 1px solid #f1f5f9; font-size: 0.875rem; }
-.badge { padding: 3px 10px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; }
-.badge-blue { background: #e0f2fe; color: #0369a1; }
-.badge-ok { background: #dcfce7; color: #166534; }
-.badge-warn { background: #fef9c3; color: #854d0e; }
-.text-bold { font-weight: 600; }
-.cargo-text { color: #64748b; font-size: 0.8rem; }
-.text-center-loading { padding: 40px; text-align: center; }
+/* Container Base */
+.layout-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+  background-color: #f8fafc;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* Cabeçalho superior */
+.header-section {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.header-section h1 {
+  color: #1a252f;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem 0;
+}
+
+.header-section p {
+  color: #64748b;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* Estrutura de Cards */
+.card-form, .card-table {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+  background-color: #f8fafc;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #1a252f;
+  font-weight: 600;
+}
+
+/* Flexbox utilitários */
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Formulário Interno */
+.main-form {
+  padding: 1.5rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.cols-3 {
+  grid-template-columns: 1fr 1fr 1.2fr;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+input, .custom-select {
+  padding: 0.65rem 0.85rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  color: #334155;
+  background-color: #ffffff;
+  transition: all 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input:focus, .custom-select:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+}
+
+/* Botões */
+.btn {
+  padding: 0.65rem 1.5rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-primary {
+  background: #3498db;
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #2980b9;
+}
+
+.btn-primary:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+  color: #94a3b8;
+}
+
+.btn-outline {
+  background: white;
+  color: #64748b;
+  border: 1px solid #cbd5e1;
+}
+
+.btn-outline:hover:not(:disabled) {
+  background: #f8fafc;
+  color: #334155;
+  border-color: #94a3b8;
+}
+
+.icon-refresh {
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+.action-bar {
+  margin-top: 1.5rem;
+}
+
+/* Caixas de Alerta */
+.msg-container {
+  margin-bottom: 0.5rem;
+}
+
+.error-msg {
+  background-color: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fee2e2;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin: 0.5rem 0;
+}
+
+.success-msg {
+  background-color: #f0fdf4;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin: 0.5rem 0;
+}
+
+/* Tabela Customizada */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.styled-table th {
+  background-color: #f8fafc;
+  padding: 1rem 1.5rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.styled-table td {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 0.9rem;
+  vertical-align: middle;
+}
+
+.styled-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+/* Badges e Textos */
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.badge-blue {
+  background: #e0f2fe;
+  color: #0369a1;
+}
+
+.badge-ok {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.text-bold {
+  font-weight: 600;
+}
+
+.text-dark {
+  color: #1a252f;
+}
+
+.text-medium {
+  color: #475569;
+}
+
+.cargo-text {
+  color: #64748b;
+  font-size: 0.8rem;
+  margin-top: 2px;
+}
+
+.empty-state {
+  padding: 2.5rem !important;
+  font-style: italic;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+/* Estado de Carregamento e Spinner CSS */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  gap: 0.75rem;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 3px solid #e2e8f0;
+  border-top-color: #3498db;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.spinner.mini {
+  width: 14px;
+  height: 14px;
+  border-width: 2px;
+  margin-right: 8px;
+  border-top-color: white;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .form-row, .cols-3 {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
 </style>
 
 <script>
