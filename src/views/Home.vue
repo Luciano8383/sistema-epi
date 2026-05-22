@@ -10,7 +10,7 @@
         <div class="menu-login-container">
             <nav>
                 <ul>
-                    <li><a href="#">Home</a></li>
+                  
                     <li><a href="https://www.sc.senai.br/" target="_blank">Institucional</a></li>
                     <li><a href="#">Fornecedores</a></li>
                 </ul>

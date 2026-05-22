@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import Home from '../views/Home.vue'
 import Cadastrar_funcionario from '../views/Cadastrar_funcionario.vue'
-import Funcionarios from '../views/Funcionarios.vue'
+
 import Login from '../views/login.vue'
 import Inicio from '../views/inicio.vue'
 import Cadastro from '../views/Cadastro.vue'
@@ -22,7 +22,7 @@ const routes = [
 
 children: [
 { path: '/cadastrar_funcionario', component: Cadastrar_funcionario},
-{ path: '/funcionarios', component: Funcionarios},
+
 {path: '/Cadastro', component: Cadastro},
 {path: '/estoque', component: Estoque},
 {path: '/entrega_epi', component: Entrega_epi},
