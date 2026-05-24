@@ -10,9 +10,31 @@
         <div class="menu-login-container">
             <nav>
                 <ul>
-                  
                     <li><a href="https://www.sc.senai.br/" target="_blank">Institucional</a></li>
-                    <li><a href="#">Fornecedores</a></li>
+                    <!-- Elemento modificado para controlar o menu flutuante -->
+                    <li class="menu-fornecedores" 
+                        @mouseenter="mostrarTabela = true" 
+                        @mouseleave="mostrarTabela = false">
+                        <a href="#">Fornecedores</a>
+                        
+                        <!-- Tabela flutuante controlada pelo Vue -->
+                        <div v-if="mostrarTabela" class="fornecedores-dropdown">
+                            <table class="tabela-fornecedores">
+                               <thead>
+                                   <tr>
+                                       <th>Nome</th>
+                                       <th>CNPJ</th>
+                                   </tr>
+                               </thead>
+                               <tbody>
+                                   <tr v-for="(fornecedor, index) in listaFornecedores" :key="index">
+                                       <td>{{ fornecedor.nome }}</td>
+                                       <td>{{ fornecedor.cnpj }}</td>
+                                   </tr>
+                               </tbody>
+                            </table>
+                        </div>
+                    </li>
                 </ul>
             </nav>
 
@@ -81,6 +103,20 @@
     </footer>
 </template>
 
+<script setup>
+import { ref } from 'vue';
+
+// Estado para controlar a visibilidade da tabela
+const mostrarTabela = ref(false);
+
+// Seus dados mockados de fornecedores (pode vir de uma API depois)
+const listaFornecedores = ref([
+    { nome: '3M do Brasil', cnpj: '45.985.371/0001-08' },
+    { nome: 'Marluvas Calçados', cnpj: '19.458.742/0002-40' },
+    { nome: 'Danny EPI', cnpj: '02.147.852/0001-99' }
+]);
+</script>
+
 <style scoped>
 /* Configurações Gerais de Reset Interno (Scoped) */
 * {
@@ -119,6 +155,73 @@
     font-size: 1.4rem;
     font-weight: 700;
     letter-spacing: 0.5px;
+}
+
+/* --- ESTILOS DO DROPDOWN DE FORNECECORES --- */
+
+/* Torna o item da lista a referência posicional */
+.menu-fornecedores {
+    position: relative;
+    display: inline-block;
+}
+
+/* Container do menu suspenso */
+.fornecedores-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffffff;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 12px;
+    z-index: 100;
+    margin-top: 10px;
+    min-width: 320px;
+}
+
+/* Pequena seta apontando para cima no dropdown */
+.fornecedores-dropdown::before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 12px;
+    height: 12px;
+    background-color: #ffffff;
+}
+
+/* Estilização interna da tabela */
+.tabela-fornecedores {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    color: #334155;
+    text-align: left;
+}
+
+.tabela-fornecedores th {
+    background-color: #f1f5f9;
+    color: #1e293b;
+    font-weight: 700;
+    padding: 8px 12px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.tabela-fornecedores td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #f1f5f9;
+    white-space: nowrap; /* Impede o CNPJ de quebrar linha */
+}
+
+/* Efeito zebrado nas linhas */
+.tabela-fornecedores tbody tr:nth-child(even) {
+    background-color: #f8fafc;
+}
+
+.tabela-fornecedores tbody tr:hover {
+    background-color: #e2e8f0;
 }
 
 .menu-login-container {

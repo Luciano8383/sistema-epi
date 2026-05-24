@@ -71,33 +71,34 @@ async function fazerLogin() {
 </script>
 
 <style scoped>
-/* Embrulho principal para garantir a centralização total na tela */
+/* Embrulho principal com fundo escuro para alto contraste */
 .login-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f8fafc; /* Cinza bem claro, moderno */
+  background-color: #0f172a; /* Azul escuro profundo (Slate 900) */
   padding: 20px;
   box-sizing: border-box;
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
-/* Container do Cartão de Login */
+/* Container do Cartão de Login - Branco puro destacado do fundo */
 .card-container {
   width: 100%;
   max-width: 420px;
   background-color: #ffffff;
   padding: 2.5rem;
   border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05), 0 5px 10px rgba(0, 0, 0, 0.03);
-  border: 1px solid #e2e8f0;
+  /* Sombra muito mais marcante e visível */
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  border: 1px solid #334155;
 }
 
 /* Título e Subtítulo */
 h2 {
   text-align: center;
-  color: #1a252f;
+  color: #1e293b;
   font-size: 1.8rem;
   font-weight: 700;
   margin: 0 0 0.5rem 0;
@@ -124,18 +125,19 @@ h2 {
 }
 
 label {
-  color: #475569;
+  color: #1e293b; /* Texto mais escuro para melhor leitura */
   font-size: 0.9rem;
   font-weight: 600;
 }
 
+/* Inputs com bordas mais escuras para evidência */
 input {
   width: 100%;
   padding: 0.75rem 1rem;
   font-size: 0.95rem;
-  color: #334155;
+  color: #0f172a;
   background-color: #f8fafc;
-  border: 1px solid #cbd5e1;
+  border: 2px solid #cbd5e1; /* Borda mais grossa e visível */
   border-radius: 6px;
   box-sizing: border-box;
   transition: all 0.2s ease;
@@ -146,53 +148,57 @@ input:focus {
   outline: none;
   border-color: #3498db;
   background-color: #ffffff;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+  box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.25);
 }
 
-/* Espelhamento de placeholders mais discretos */
+/* Placeholders ligeiramente mais visíveis */
 input::placeholder {
   color: #94a3b8;
 }
 
-/* Caixa de Mensagem de Erro */
+/* Caixa de Mensagem de Erro com bloco de cor sólida */
 .error-message {
   display: flex;
   align-items: center;
-  gap: 8px;
-  background-color: #fef2f2;
-  color: #dc2626;
-  border: 1px solid #fee2e2;
-  padding: 0.75rem 1rem;
+  gap: 10px;
+  background-color: #ef4444; /* Vermelho vivo */
+  color: #ffffff; /* Texto branco para contraste total */
+  padding: 0.85rem 1rem;
   border-radius: 6px;
   font-size: 0.85rem;
-  font-weight: 500;
+  font-weight: 600;
+  box-shadow: 0 4px 6px rgba(239, 68, 68, 0.2);
 }
 
 .error-message svg {
   flex-shrink: 0;
 }
 
-/* Botão de Ação Principal */
+/* Botão de Ação Principal em Evidência */
 .btn-submit {
   width: 100%;
-  padding: 0.85rem;
+  padding: 0.9rem;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   color: #ffffff;
   background-color: #3498db;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3); /* Sombra colorida no botão */
+  transition: all 0.2s ease;
   margin-top: 0.5rem;
 }
 
 .btn-submit:hover {
   background-color: #2980b9;
+  box-shadow: 0 6px 16px rgba(41, 128, 185, 0.4);
+  transform: translateY(-1px);
 }
 
 .btn-submit:active {
-  transform: scale(0.98);
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(41, 128, 185, 0.2);
 }
 </style>
 
