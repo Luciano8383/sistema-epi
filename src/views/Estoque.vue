@@ -69,7 +69,7 @@
               <th>EPI / CA</th>
               <th>Data Validade</th>
               <th>Quantidade</th>
-              <th class="text-center">Status Vencimento</th>
+              <th style="text-align: center !important;">Status Vencimento</th>
             </tr>
           </thead>
           <tbody>
