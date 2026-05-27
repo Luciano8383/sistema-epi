@@ -41,7 +41,7 @@
             <div class="login-area">
                 <router-link to="/login" class="login-link">Login</router-link>
                 <router-link to="/login" class="login-icon-container">
-                    <img src="../assets/header/login.png" alt="Ícone de Login" class="login-icon">
+                    <img src="../assets/Header/login.png" alt="Ícone de Login" class="login-icon">
                 </router-link>
             </div>
         </div>
