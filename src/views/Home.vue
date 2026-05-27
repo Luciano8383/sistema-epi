@@ -4,7 +4,7 @@
             <div class="empresa-logo">
                 <img src="../assets/header/logo.png" alt="Logo da Empresa" class="logo-header">
             </div>
-            <div class="empresa-nome">Sistema de EPI</div>
+            <div class="empresa-nome">Sistema de EPIS</div>
         </div>
 
         <div class="menu-login-container">
