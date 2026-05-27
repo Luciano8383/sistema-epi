@@ -176,59 +176,104 @@ onMounted(carregar)
 </script>
 
 <style scoped>
+/* ==========================================
+   1. CONTAINER E ESTRUTURA BASE (MOBILE-FIRST)
+   ========================================== */
 .layout-container { 
+  width: 100%;
   max-width: 1200px; 
   margin: 0 auto; 
-  padding: 10px 20px;
+  padding: 15px 15px; /* Ajustado para telas pequenas */
   background: #ffffff; 
   min-height: 100vh; 
   font-family: sans-serif;
+  box-sizing: border-box;
 }
 
-/* FLEX UTILITIES (Geralmente usados no cabeçalho) */
-.flex-between {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
+/* CARDS GERENCIAIS */
 .card { 
   background: white; 
   border: 1px solid #f1f5f9; 
   border-radius: 12px; 
-  padding: 20px; 
+  padding: 15px; /* Mais compacto no mobile */
   margin-bottom: 20px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  box-sizing: border-box;
 }
 
-.header-section h1 { margin: 0; font-size: 1.8rem; }
-.header-section p { color: #64748b; margin-top: -5px; }
+/* FLEX UTILITIES (Adaptáveis para Mobile) */
+.flex-between {
+  display: flex;
+  flex-direction: column; /* Empilha o cabeçalho no celular */
+  align-items: flex-start;
+  gap: 12px;
+}
 
-.form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
-.form-group { display: flex; flex-direction: column; gap: 5px; font-weight: bold; font-size: 0.85rem; }
+.text-center { text-align: center; }
 
-input, select { padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; }
+/* CABEÇALHO DA PÁGINA */
+.header-section h1 { 
+  margin: 0; 
+  font-size: 1.5rem; /* Menor no celular */
+}
+.header-section p { 
+  color: #64748b; 
+  margin-top: 2px; 
+  font-size: 0.9rem;
+}
 
-/* BOTÕES GERAIS E SECUNDÁRIOS */
+/* ==========================================
+   2. FORMULÁRIOS E INPUTS
+   ========================================== */
+.form-row { 
+  display: grid; 
+  /* Auto-fit excelente que se vira bem em qualquer tela */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+  gap: 15px; 
+}
+
+.form-group { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 5px; 
+  font-weight: bold; 
+  font-size: 0.85rem; 
+}
+
+input, select { 
+  padding: 10px; 
+  border: 1px solid #cbd5e1; 
+  border-radius: 6px; 
+  font-size: 0.95rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* BOTÕES RESPONSIVOS */
 .btn-primary { 
   background: #2563eb; 
   color: white; 
   border: none; 
-  padding: 10px 20px; 
+  padding: 12px 20px; /* Área de toque maior no mobile */
   border-radius: 6px; 
   cursor: pointer; 
+  font-weight: 600;
+  font-size: 0.95rem;
+  width: 100%; /* Ocupa tudo no celular para facilitar o clique */
+  text-align: center;
+  box-sizing: border-box;
 }
 
-/* NOVO ESTILO DO BOTÃO ATUALIZAR */
 .btn-refresh {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   background-color: #ffffff;
   color: #334155;
   border: 1px solid #cbd5e1;
   border-radius: 6px;
-  padding: 8px 14px;
+  padding: 10px 16px;
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
@@ -254,35 +299,103 @@ input, select { padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; }
   cursor: not-allowed;
 }
 
-/* Animação do ícone girando (quando loading for true) */
-.spinning {
-  animation: spin 1s linear infinite;
-}
-
+/* Animações */
+.spinning { animation: spin 1s linear infinite; }
 @keyframes spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
-/* TABELAS */
-.styled-table { width: 100%; border-collapse: collapse; }
-.styled-table th { background: #f8fafc; padding: 12px; text-align: left; color: #64748b; font-size: 0.75rem; text-transform: uppercase; }
-.styled-table td { padding: 12px; border-top: 1px solid #f1f5f9; }
+.blink { animation: blinker 1.5s linear infinite; }
+@keyframes blinker { 50% { opacity: 0.4; } }
 
-/* BADGES E ALARMES */
-.badge { padding: 5px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; display: inline-block; }
+/* Mensagens de Feedback */
+.success-msg, .error-msg { 
+  font-size: 0.9rem; 
+  margin-top: 10px; 
+  font-weight: 500;
+}
+.success-msg { color: #16a34a; }
+.error-msg { color: #dc2626; }
+
+/* ==========================================
+   3. TABELAS COM ROLAGEM PROTEGIDA
+   ========================================== */
+/* Adicione esta classe como uma div em volta da sua <table> no HTML */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch; /* Rolagem nativa lisa no iOS */
+}
+
+.styled-table { 
+  width: 100%; 
+  min-width: 700px; /* Impede as colunas de se esmagarem no mobile */
+  border-collapse: collapse; 
+}
+
+.styled-table th { 
+  background: #f8fafc; 
+  padding: 12px; 
+  text-align: left; 
+  color: #64748b; 
+  font-size: 0.75rem; 
+  text-transform: uppercase; 
+}
+
+.styled-table td { 
+  padding: 12px; 
+  border-top: 1px solid #f1f5f9; 
+  font-size: 0.9rem;
+}
+
+/* BADGES E COMPONENTES INTERNOS */
+.badge { 
+  padding: 5px 10px; 
+  border-radius: 20px; 
+  font-size: 0.75rem; 
+  font-weight: bold; 
+  display: inline-block; 
+  white-space: nowrap; /* Evita que o texto quebre em duas linhas */
+}
 .badge-ok { background: #dcfce7; color: #15803d; }
 .badge-warn { background: #fef9c3; color: #854d0e; }
 .badge-danger { background: #fee2e2; color: #b91c1c; }
 
 .text-bold { font-weight: bold; }
-.text-center { text-align: center; }
 .cargo-text { font-size: 0.8rem; color: #94a3b8; }
 
-/* ANIMAÇÃO PISCANTE PARA VENCIDOS */
-.blink { animation: blinker 1.5s linear infinite; }
-@keyframes blinker { 50% { opacity: 0.4; } }
 
-.success-msg { color: #16a34a; font-size: 0.9rem; margin-top: 10px; }
-.error-msg { color: #dc2626; font-size: 0.9rem; margin-top: 10px; }
+/* ==========================================
+   4. MEDIA QUERIES (DISPOSITIVOS MAIORES)
+   ========================================== */
+
+/* Tablets em diante (Telas a partir de 768px) */
+@media (min-width: 768px) {
+  .layout-container { 
+    padding: 20px 40px;
+  }
+
+  .card { 
+    padding: 20px; 
+  }
+
+  /* Restaura o alinhamento lado a lado original */
+  .flex-between {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header-section h1 { 
+    font-size: 1.8rem; 
+  }
+
+  /* O botão principal volta ao tamanho original contido */
+  .btn-primary { 
+    width: auto; 
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
 </style>

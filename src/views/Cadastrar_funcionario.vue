@@ -166,75 +166,81 @@ onMounted(carregar);
 </script>
 
 <style scoped>
-/* Container Principal */
+/* ==========================================
+   1. CONTAINER E ESTRUTURA BASE (MOBILE-FIRST)
+   ========================================== */
 .layout-container {
   width: 100%;
   max-width: 1100px;
   margin: 0 auto;
-  padding: 1.5rem 1rem;
+  padding: 1rem; /* Padding reduzido no mobile */
   background-color: #f8fafc;
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
 }
 
 /* Cabeçalho da Seção */
 .header-section {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid #e2e8f0;
 }
 
 .header-section h1 {
   color: #1a252f;
-  font-size: 1.75rem;
+  font-size: 1.5rem; /* Menor no mobile */
   font-weight: 700;
-  margin: 0 0 0.25rem 0;
+  margin: 0 0 0.35rem 0;
 }
 
 .header-section p {
   color: #64748b;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   margin: 0;
+  line-height: 1.4;
 }
 
-/* Estilização dos Cards */
+/* ==========================================
+   2. CARDS E FORMULÁRIOS
+   ========================================== */
 .card-form, .card-table {
   background: #ffffff;
   border-radius: 8px;
   border: 1px solid #e2e8f0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   overflow: hidden;
 }
 
 .card-header {
   background-color: #f8fafc;
-  padding: 1rem 1.5rem;
+  padding: 1rem;
   border-bottom: 1px solid #e2e8f0;
 }
 
 .card-header h3 {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   color: #1a252f;
   font-weight: 600;
 }
 
 .main-form {
-  padding: 1.5rem;
+  padding: 1rem; /* Mais compacto no mobile */
 }
 
-/* Grid do Formulário */
+/* Grid do Formulário (Padrão: Uma coluna para celular) */
 .form-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin-bottom: 1.25rem;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 label {
@@ -251,6 +257,8 @@ input {
   color: #334155;
   background-color: #ffffff;
   transition: all 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 input:focus {
@@ -264,20 +272,23 @@ input::placeholder {
   font-size: 0.9rem;
 }
 
-/* Barra de Ações do Formulário */
+/* Barra de Ações (Botões empilhados no mobile) */
 .action-bar {
   display: flex;
+  flex-direction: column;
   gap: 0.75rem;
   margin-top: 1.5rem;
 }
 
 .btn {
-  padding: 0.65rem 1.5rem;
+  width: 100%; /* Ocupa tudo no mobile */
+  padding: 0.75rem 1.5rem; /* Área de toque maior */
   border-radius: 6px;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+  text-align: center;
 }
 
 .btn-primary {
@@ -302,22 +313,26 @@ input::placeholder {
   border-color: #94a3b8;
 }
 
-/* Tabela Profissional Customizada */
+/* ==========================================
+   3. TABELA RESPONSIVA
+   ========================================== */
 .table-responsive {
   width: 100%;
-  overflow-x: auto; /* Garante que role de lado se a tela for muito pequena */
+  overflow-x: auto; /* Ativa scroll horizontal se faltar espaço */
+  -webkit-overflow-scrolling: touch; /* Rolagem macia no iOS */
 }
 
 .styled-table {
   width: 100%;
+  min-width: 750px; /* Garante que a tabela não quebre layout em telas mini */
   border-collapse: collapse;
   text-align: left;
 }
 
 .styled-table th {
   background-color: #f8fafc;
-  padding: 1rem 1.5rem;
-  font-size: 0.8rem;
+  padding: 0.85rem 1rem;
+  font-size: 0.75rem;
   font-weight: 700;
   color: #64748b;
   text-transform: uppercase;
@@ -326,19 +341,18 @@ input::placeholder {
 }
 
 .styled-table td {
-  padding: 1rem 1.5rem;
+  padding: 0.85rem 1rem;
   border-bottom: 1px solid #f1f5f9;
   font-size: 0.9rem;
   color: #334155;
   vertical-align: middle;
 }
 
-/* Efeito Hover nas linhas da Tabela */
 .styled-table tbody tr:hover {
   background-color: #f8fafc;
 }
 
-/* Estilização de Colunas Específicas */
+/* Componentes internos da tabela */
 .text-bold {
   font-weight: 600;
   color: #1a252f;
@@ -352,7 +366,6 @@ input::placeholder {
   color: #475569;
 }
 
-/* Badge Neutro para Cargos */
 .badge-cargo {
   display: inline-block;
   background: #e2e8f0;
@@ -361,9 +374,9 @@ input::placeholder {
   border-radius: 4px;
   font-size: 0.8rem;
   font-weight: 500;
+  white-space: nowrap; /* Impede o cargo de quebrar linha */
 }
 
-/* Wrapper e botões de ação estruturados */
 .actions-wrapper {
   display: flex;
   justify-content: center;
@@ -371,7 +384,7 @@ input::placeholder {
 }
 
 .btn-action {
-  padding: 5px 12px;
+  padding: 6px 12px;
   font-size: 0.8rem;
   font-weight: 600;
   border-radius: 4px;
@@ -409,11 +422,47 @@ input::placeholder {
   text-align: center !important;
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
+/* ==========================================
+   4. MEDIA QUERIES (ADAPTAÇÃO PARA TELAS MAIORES)
+   ========================================== */
+
+/* Tablets em diante (Dispositivos médios e grandes) */
+@media (min-width: 768px) {
+  .layout-container {
+    padding: 1.5rem 2rem;
+  }
+
+  .header-section h1 {
+    font-size: 1.75rem;
+  }
+
+  .card-header {
+    padding: 1rem 1.5rem;
+  }
+
+  .main-form {
+    padding: 1.5rem;
+  }
+
+  /* O formulário volta a ter duas colunas */
   .form-row {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  /* Os botões voltam a ficar lado a lado e com tamanho normal */
+  .action-bar {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .btn {
+    width: auto;
+  }
+
+  .styled-table th, .styled-table td {
+    padding: 1rem 1.5rem;
   }
 }
 </style>

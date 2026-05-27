@@ -71,35 +71,39 @@ async function fazerLogin() {
 </script>
 
 <style scoped>
-/* Embrulho principal com fundo escuro para alto contraste */
+/* ==========================================
+   1. CONTAINER E RESET (MOBILE-FIRST)
+   ========================================== */
 .login-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   background-color: #0f172a; /* Azul escuro profundo (Slate 900) */
-  padding: 20px;
+  padding: 1rem; /* Reduzido no mobile para dar mais área útil */
   box-sizing: border-box;
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
-/* Container do Cartão de Login - Branco puro destacado do fundo */
+/* Container do Cartão de Login - Adaptável */
 .card-container {
   width: 100%;
   max-width: 420px;
   background-color: #ffffff;
-  padding: 2.5rem;
+  padding: 1.5rem; /* Mais compacto no mobile para não esmagar os campos */
   border-radius: 12px;
-  /* Sombra muito mais marcante e visível */
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
   border: 1px solid #334155;
+  box-sizing: border-box;
 }
 
-/* Título e Subtítulo */
+/* ==========================================
+   2. ELEMENTOS DE TEXTO E FORMULÁRIO
+   ========================================== */
 h2 {
   text-align: center;
   color: #1e293b;
-  font-size: 1.8rem;
+  font-size: 1.6rem; /* Ligeiramente menor no mobile */
   font-weight: 700;
   margin: 0 0 0.5rem 0;
 }
@@ -107,11 +111,10 @@ h2 {
 .subtitle {
   text-align: center;
   color: #64748b;
-  font-size: 0.9rem;
-  margin-bottom: 2rem;
+  font-size: 0.85rem;
+  margin-bottom: 1.5rem; /* Menor espaço para evitar rolagens desnecessárias */
 }
 
-/* Estrutura do Formulário */
 .login-form {
   display: flex;
   flex-direction: column;
@@ -125,25 +128,24 @@ h2 {
 }
 
 label {
-  color: #1e293b; /* Texto mais escuro para melhor leitura */
-  font-size: 0.9rem;
+  color: #1e293b;
+  font-size: 0.85rem;
   font-weight: 600;
 }
 
-/* Inputs com bordas mais escuras para evidência */
+/* Inputs fluídos e confortáveis para o toque */
 input {
   width: 100%;
   padding: 0.75rem 1rem;
   font-size: 0.95rem;
   color: #0f172a;
   background-color: #f8fafc;
-  border: 2px solid #cbd5e1; /* Borda mais grossa e visível */
+  border: 2px solid #cbd5e1;
   border-radius: 6px;
   box-sizing: border-box;
   transition: all 0.2s ease;
 }
 
-/* Feedback visual ao focar no input */
 input:focus {
   outline: none;
   border-color: #3498db;
@@ -151,30 +153,30 @@ input:focus {
   box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.25);
 }
 
-/* Placeholders ligeiramente mais visíveis */
 input::placeholder {
   color: #94a3b8;
 }
 
-/* Caixa de Mensagem de Erro com bloco de cor sólida */
+/* Caixa de Mensagem de Erro */
 .error-message {
   display: flex;
   align-items: center;
   gap: 10px;
-  background-color: #ef4444; /* Vermelho vivo */
-  color: #ffffff; /* Texto branco para contraste total */
+  background-color: #ef4444;
+  color: #ffffff;
   padding: 0.85rem 1rem;
   border-radius: 6px;
   font-size: 0.85rem;
   font-weight: 600;
   box-shadow: 0 4px 6px rgba(239, 68, 68, 0.2);
+  line-height: 1.4;
 }
 
 .error-message svg {
   flex-shrink: 0;
 }
 
-/* Botão de Ação Principal em Evidência */
+/* Botão de Envio */
 .btn-submit {
   width: 100%;
   padding: 0.9rem;
@@ -185,9 +187,11 @@ input::placeholder {
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3); /* Sombra colorida no botão */
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
   transition: all 0.2s ease;
-  margin-top: 0.5rem;
+  margin-top: 0.25rem;
+  text-align: center;
+  box-sizing: border-box;
 }
 
 .btn-submit:hover {
@@ -199,6 +203,31 @@ input::placeholder {
 .btn-submit:active {
   transform: translateY(1px);
   box-shadow: 0 2px 4px rgba(41, 128, 185, 0.2);
+}
+
+
+/* ==========================================
+   3. MEDIA QUERIES (TELAS INTERMEDIÁRIAS E MAIORES)
+   ========================================== */
+
+/* A partir de telas pequenas/médias (Ex: Tablets ou Celulares deitados) */
+@media (min-width: 480px) {
+  .login-wrapper {
+    padding: 20px; /* Restaura o respiro original */
+  }
+
+  .card-container {
+    padding: 2.5rem; /* Devolve o espaçamento interno elegante */
+  }
+
+  h2 {
+    font-size: 1.8rem; /* Restaura o tamanho original do título */
+  }
+
+  .subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+  }
 }
 </style>
 

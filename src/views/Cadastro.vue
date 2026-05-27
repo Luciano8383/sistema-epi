@@ -148,34 +148,38 @@ onMounted(carregar);
 
 
 <style scoped>
-/* Container Geral */
+/* ==========================================
+   1. ESTRUTURA BASE E CONTAINERS (MOBILE)
+   ========================================== */
 .layout-container {
   width: 100%;
   max-width: 1100px;
   margin: 0 auto;
-  padding: 1.5rem 1rem;
+  padding: 1rem; /* Padding menor em telas pequenas */
   background-color: #f8fafc;
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  box-sizing: border-box;
 }
 
 /* Cabeçalho superior */
 .header-section {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid #e2e8f0;
 }
 
 .header-section h1 {
   color: #1a252f;
-  font-size: 1.75rem;
+  font-size: 1.5rem; /* Fonte ligeiramente menor no celular */
   font-weight: 700;
-  margin: 0 0 0.25rem 0;
+  margin: 0 0 0.35rem 0;
 }
 
 .header-section p {
   color: #64748b;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   margin: 0;
+  line-height: 1.4;
 }
 
 /* Estrutura de Cards */
@@ -184,39 +188,41 @@ onMounted(carregar);
   border-radius: 8px;
   border: 1px solid #e2e8f0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   overflow: hidden;
 }
 
 .card-header {
   background-color: #f8fafc;
-  padding: 1rem 1.5rem;
+  padding: 1rem; /* Mais compacto no mobile */
   border-bottom: 1px solid #e2e8f0;
 }
 
 .card-header h3 {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   color: #1a252f;
   font-weight: 600;
 }
 
 .main-form {
-  padding: 1.5rem;
+  padding: 1rem; /* Reduzido para não espremer inputs */
 }
 
-/* Alinhamento Corrigido do Grid */
+/* ==========================================
+   2. FORMULÁRIO E INPUTS (PADRÃO UMA COLUNA)
+   ========================================== */
 .form-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin-bottom: 1.25rem;
+  grid-template-columns: 1fr; /* Força uma coluna no mobile */
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 label {
@@ -233,6 +239,8 @@ input {
   color: #334155;
   background-color: #ffffff;
   transition: all 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 input:focus {
@@ -246,20 +254,23 @@ input::placeholder {
   font-size: 0.9rem;
 }
 
-/* Botões do Formulário */
+/* Botões do Formulário (Empilhados no mobile) */
 .action-bar {
   display: flex;
+  flex-direction: column; /* Um botão abaixo do outro no mobile */
   gap: 0.75rem;
   margin-top: 1.5rem;
 }
 
 .btn {
-  padding: 0.65rem 1.5rem;
+  width: 100%; /* Botão largo para facilitar o clique touch */
+  padding: 0.75rem 1.5rem; 
   border-radius: 6px;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+  text-align: center;
 }
 
 .btn-primary {
@@ -284,22 +295,26 @@ input::placeholder {
   border-color: #94a3b8;
 }
 
-/* Tabela Responsiva e Profissional */
+/* ==========================================
+   3. TABELA PROFISSIONAL COM SCROLL SEGURO
+   ========================================== */
 .table-responsive {
   width: 100%;
-  overflow-x: auto;
+  overflow-x: auto; /* Cria rolagem lateral apenas na tabela se faltar espaço */
+  -webkit-overflow-scrolling: touch; /* Rolagem lisa no iOS */
 }
 
 .styled-table {
   width: 100%;
+  min-width: 800px; /* Impede os dados de se esmagarem em telas pequenas */
   border-collapse: collapse;
   text-align: left;
 }
 
 .styled-table th {
   background-color: #f8fafc;
-  padding: 1rem 1.5rem;
-  font-size: 0.8rem;
+  padding: 0.85rem 1rem;
+  font-size: 0.75rem;
   font-weight: 700;
   color: #64748b;
   text-transform: uppercase;
@@ -308,7 +323,7 @@ input::placeholder {
 }
 
 .styled-table td {
-  padding: 1rem 1.5rem;
+  padding: 0.85rem 1rem;
   border-bottom: 1px solid #f1f5f9;
   font-size: 0.9rem;
   color: #334155;
@@ -354,7 +369,7 @@ input::placeholder {
 }
 
 .btn-action {
-  padding: 5px 12px;
+  padding: 6px 12px;
   font-size: 0.8rem;
   font-weight: 600;
   border-radius: 4px;
@@ -392,11 +407,55 @@ input::placeholder {
   text-align: center !important;
 }
 
-/* Responsividade Média */
-@media (max-width: 768px) {
+/* ==========================================
+   4. MEDIA QUERIES (ADAPTAÇÃO PARA TELAS MAIORES)
+   ========================================== */
+
+/* Tablets e Desktops (Telas a partir de 768px) */
+@media (min-width: 768px) {
+  .layout-container {
+    padding: 1.5rem 2rem;
+  }
+
+  .header-section {
+    margin-bottom: 2rem;
+  }
+
+  .header-section h1 {
+    font-size: 1.75rem;
+  }
+
+  .card-header {
+    padding: 1rem 1.5rem;
+  }
+
+  .main-form {
+    padding: 1.5rem;
+  }
+
+  /* O Grid volta a se dividir em duas colunas */
   .form-row {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+
+  /* Os botões voltam a alinhar lado a lado com tamanho natural */
+  .action-bar {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .btn {
+    width: auto;
+    padding: 0.65rem 1.5rem;
+    font-size: 0.9rem;
+  }
+
+  /* Restaura os espaçamentos ideais da tabela em telas grandes */
+  .styled-table th, 
+  .styled-table td {
+    padding: 1rem 1.5rem;
   }
 }
 </style>
